@@ -18,7 +18,9 @@ public class EfRepositoryBase<TContext, TEntity, TId> : IRepository<TEntity, TId
     {
         entity.CreatedDate= DateTime.Now;
         Context.Set<TEntity>().Add(entity);
+      
         Context.SaveChanges();
+
         return entity;
     }
 
