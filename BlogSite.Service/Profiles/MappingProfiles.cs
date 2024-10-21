@@ -28,9 +28,6 @@ public class MappingProfiles : Profile
             .ForMember(x => x.UserName, opt => opt.MapFrom(X => X.Author.UserName));
         CreateMap<Category, CategoryResponseDto>();
         CreateMap<Comment, CommentResponseDto>();
-             
-           
-          
         CreateMap<User,UserResponseDto>();
     }
 }
