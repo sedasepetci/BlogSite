@@ -1,14 +1,24 @@
 ﻿using BlogSite.Models.Dtos.Users.Requests;
-using BlogSite.Models.Dtos.Users.Responses;
-using Core.Responses;
+using BlogSite.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BlogSite.Service.Abstracts;
+namespace BlogSite.Service.Abstratcts;
 
 public interface IUserService
 {
-    ReturnModel<List<UserResponseDto>> GetAll();
-    ReturnModel<UserResponseDto?> GetById(long id);
-    ReturnModel<UserResponseDto> Add(CreateUserRequest create);
-    ReturnModel<UserResponseDto> Update(UpdateUserRequest update);
-    ReturnModel<UserResponseDto> Remove(long id);
+
+    Task<User> RegisterAsync(RegisterRequestDto dto);
+    Task<User> GetByEmailAsync(string email);
+
+    Task<User> LoginAsync(LoginRequestDto dto);
+
+    Task<User> UpdateAsync(string id, UserUpdateRequestDto dto);
+
+    Task<User> ChangePasswordAsync(string id, ChangePasswordRequestDto requestDto);
+
+    Task<string> DeleteAsync(string id);
 }

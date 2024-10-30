@@ -1,15 +1,16 @@
-﻿
-
-using Core.Entities;
+﻿using Core.Entities;
+using System.Linq.Expressions;
 
 namespace Core.Repositories;
 
-public interface IRepository<TEntity,TId>where TEntity:Entity<TId>, new()
+public interface IRepository<TEntiy, TId> where TEntiy : Entity<TId>, new()
 {
-    List<TEntity> GetAll();
-    TEntity? GetById(TId id);
-    TEntity? Update(TEntity entity);
-    TEntity? Add(TEntity entity);
-    TEntity Remove(TEntity entity);
+    List<TEntiy> GetAll(Expression<Func<TEntiy, bool>>? filter = null, bool enableAutoInclude = true);
+    TEntiy? GetById(TId id);
 
+    TEntiy? Update(TEntiy entity);
+
+    TEntiy? Add(TEntiy entity);
+
+    TEntiy? Remove(TEntiy entity);
 }

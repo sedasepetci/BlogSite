@@ -17,7 +17,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.Property(x => x.Id).HasColumnName("CategoryId");
         builder.Property(x => x.CreatedDate).HasColumnName("CreateTime");
         builder.Property(x => x.UpdatedDate).HasColumnName("UpdatedTime");
-        builder.Property(x => x.CategoryName).HasColumnName("CategoryName");
+        builder.Property(x => x.Name).HasColumnName("CategoryName");
 
         builder
             .HasMany(x => x.Posts)
@@ -26,5 +26,12 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .OnDelete(DeleteBehavior.NoAction);
 
 
+
+        builder.HasData(new Category
+        {
+            Id = 1,
+            Name = "Yazılım",
+            CreatedDate = DateTime.Now
+        });
     }
 }
