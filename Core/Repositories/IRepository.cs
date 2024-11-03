@@ -3,14 +3,14 @@ using System.Linq.Expressions;
 
 namespace Core.Repositories;
 
-public interface IRepository<TEntiy, TId> where TEntiy : Entity<TId>, new()
+public interface IRepository<TEntity, TId> where TEntity : Entity<TId>, new()
 {
-    List<TEntiy> GetAll(Expression<Func<TEntiy, bool>>? filter = null, bool enableAutoInclude = true);
-    TEntiy? GetById(TId id);
+    List<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null, bool enableAutoInclude = true);
+    TEntity? GetById(TId id);
 
-    TEntiy? Update(TEntiy entity);
+    TEntity? Update(TEntity entity);
 
-    TEntiy? Add(TEntiy entity);
+    TEntity? Add(TEntity entity);
 
-    TEntiy? Remove(TEntiy entity);
+    TEntity? Remove(TEntity entity);
 }

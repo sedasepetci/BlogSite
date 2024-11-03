@@ -1,7 +1,7 @@
 ﻿
 using BlogSite.Models.Dtos.Tokens.Responses;
 using BlogSite.Models.Dtos.Users.Requests;
-using BlogSite.Service.Abstracts;
+
 using BlogSite.Service.Abstratcts;
 using Core.Responses;
 
@@ -14,7 +14,7 @@ public class AuthenticationService(IUserService _userService, IJwtService _jwtSe
     public async Task<ReturnModel<TokenResponseDto>> LoginAsync(LoginRequestDto dto)
     {
         var user = await _userService.LoginAsync(dto);
-        var tokenResponse = _jwtService.CreateJwtToken(user);
+        var tokenResponse = await _jwtService.CreateJwtTokenAsync(user);
 
         return new ReturnModel<TokenResponseDto>
         {
@@ -28,7 +28,7 @@ public class AuthenticationService(IUserService _userService, IJwtService _jwtSe
     public async Task<ReturnModel<TokenResponseDto>> RegisterAsync(RegisterRequestDto dto)
     {
         var user = await _userService.RegisterAsync(dto);
-        var tokenResponse = _jwtService.CreateJwtToken(user);
+        var tokenResponse = await _jwtService.CreateJwtTokenAsync(user);
 
         return new ReturnModel<TokenResponseDto>
         {

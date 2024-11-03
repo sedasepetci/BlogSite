@@ -1,11 +1,10 @@
-﻿
-
-using BlogSite.Models.Dtos.Tokens.Responses;
+﻿using BlogSite.Models.Dtos.Tokens.Responses;
 using BlogSite.Models.Entities;
 
-namespace BlogSite.Service.Abstracts;
+
+namespace BlogSite.Service.Abstratcts;
 
 public interface IJwtService
 {
-    TokenResponseDto CreateJwtToken(User user);
+    Task<TokenResponseDto> CreateJwtTokenAsync(User user);
 }

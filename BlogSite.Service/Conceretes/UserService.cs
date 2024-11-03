@@ -1,6 +1,4 @@
-﻿
-
-using BlogSite.Models.Dtos.Users.Requests;
+﻿using BlogSite.Models.Dtos.Users.Requests;
 using BlogSite.Models.Entities;
 using BlogSite.Service.Abstratcts;
 using Core.Exceptions;
