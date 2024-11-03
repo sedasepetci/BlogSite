@@ -1,4 +1,6 @@
-﻿using BlogSite.Models.Dtos.Users.Requests;
+﻿
+
+using BlogSite.Models.Dtos.Users.Requests;
 using BlogSite.Models.Entities;
 using BlogSite.Service.Abstratcts;
 using Core.Exceptions;
@@ -21,11 +23,7 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
         }
 
         var result = await _userManager.ChangePasswordAsync(user, requestDto.CurrentPassword, requestDto.NewPassword);
-
-        if (result.Succeeded is false)
-        {
-            throw new BusinessException(result.Errors.ToList().First().Description);
-        }
+        CheckForIdentityResult(result);
 
         return user;
     }
@@ -40,11 +38,7 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
         }
 
         var result = await _userManager.DeleteAsync(user);
-
-        if (result.Succeeded is false)
-        {
-            throw new BusinessException(result.Errors.ToList().First().Description);
-        }
+        CheckForIdentityResult(result);
 
         return "Kullanıcı Silindi.";
 
@@ -53,7 +47,6 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
     public async Task<User> GetByEmailAsync(string email)
     {
         var user = await _userManager.FindByEmailAsync(email);
-
 
         if (user is null)
         {
@@ -94,11 +87,11 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
 
         };
         var result = await _userManager.CreateAsync(user, dto.Password);
+        CheckForIdentityResult(result);
 
-        if (!result.Succeeded)
-        {
-            throw new BusinessException(result.Errors.ToList().First().Description);
-        }
+        var addRole = await _userManager.AddToRoleAsync(user, "User");
+        CheckForIdentityResult(addRole);
+
         return user;
     }
 
@@ -117,12 +110,17 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
 
 
         var result = await _userManager.UpdateAsync(user);
+        CheckForIdentityResult(result);
 
+        return user;
+    }
+
+
+    private void CheckForIdentityResult(IdentityResult result)
+    {
         if (!result.Succeeded)
         {
             throw new BusinessException(result.Errors.ToList().First().Description);
         }
-
-        return user;
     }
 }
